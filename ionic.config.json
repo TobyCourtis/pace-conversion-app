@@ -1,0 +1,7 @@
+{
+  "name": "instagram-improved",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
