@@ -1,17 +1,19 @@
 import React from 'react';
 import './Home.css';
 import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
+import TimeSelector from "../components/TimeSelector";
 
 
 function Home() {
     return (
-        <IonPage>
-            <IonHeader>|
+        <IonPage className={'home-page'}>
+            <IonHeader>
                 <IonToolbar>
-                    <IonTitle>PaceCalculator</IonTitle>
+                    <IonTitle>Pace Converter</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonContent fullscreen>
+            <IonContent fullscreen className={'no-scroll'}>
+                <TimeSelector/>
             </IonContent>
         </IonPage>
     );
