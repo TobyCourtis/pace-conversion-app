@@ -32,3 +32,8 @@ Currently, supports pace to speed e.g 5min/km -> 12km/h
 `npx cap sync`
 
 `npx cap open ios`
+
+
+live reload command, looking at local host. Port 8100 set in capacitor.config.ts
+
+`npx cap run ios --livereload --external --address localhost`
