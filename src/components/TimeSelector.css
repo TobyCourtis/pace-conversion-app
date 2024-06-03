@@ -1,16 +1,20 @@
-.time-selector-content {
-}
-
-.time-selector-datetime-div {
-    margin-top: 10vh;
+.centre {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
+.time-selector-datetime-div {
+    margin-top: 10vh;
+}
+
 .time-selector-datetime {
     border-radius: 15px;
 
     width: 80%;
+}
+
+.converted-time-div {
+    margin-top: 10vh;
 }
