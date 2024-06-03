@@ -23,3 +23,12 @@ Currently, supports pace to speed e.g 5min/km -> 12km/h
 ## Backend
 
 `cd backend && npm start`
+
+
+## Building frontend
+
+`npm run build`
+
+`npx cap sync`
+
+`npx cap open ios`
