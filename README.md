@@ -1,7 +1,25 @@
 # Running Pace Conversion App
 
-Currently, supports pace to speed e.g 5min/km -> 12km/h
-
 An Ionic test!!
 
+Currently, supports pace to speed e.g 5min/km -> 12km/h
 
+<br>
+
+## Requirements
+
+- node v20.0.0
+
+## Frontend
+
+#### Start
+
+`ionic serve`
+
+#### Fronted client manual run
+
+`npx tsx BackendClient.ts`
+
+## Backend
+
+`cd backend && npm start`
