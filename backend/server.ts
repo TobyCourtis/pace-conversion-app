@@ -1,8 +1,8 @@
-import express, { Request, Response } from 'express';
+import express, {Express, Request, Response} from 'express';
 import bodyParser from 'body-parser';
 
-const app = express();
-const port = 5000;
+const app: Express = express();
+const port: number = 9999;
 
 app.use(bodyParser.json());
 
@@ -14,30 +14,34 @@ type Pace = {
 };
 
 type PacePair = {
-    id: string;
+    id: number;
     pace1: Pace;
     pace2: Pace;
 };
 
-let pacePairs: { [id: string]: PacePair } = {};
+let pacePairs: PacePair[] = [];
+let pacePairIdCounter: number = 1;
 
 app.post('/paces', (req: Request, res: Response) => {
-    const { pace1, pace2 } = req.body;
+    const {pace1, pace2} = req.body;
 
-    if (!pace1 || !pace2 || !pace1.value || !pace1.units || !pace1.userId || !pace1.date || !pace2.value || !pace2.units || !pace2.userId || !pace2.date) {
-        return res.status(400).send('Both pace1 and pace2 with all fields (value, units, userId, and date) are required');
+    if (!pace1 || !pace2 || !pace1.value || !pace1.units || !pace1.userId || !pace1.date || !pace2.value ||
+        !pace2.units || !pace2.userId || !pace2.date) {
+        return res.status(400).send('Both pace1 and pace2 with all fields (value, ' +
+            'units, userId, and date) are required');
     }
 
-    const id = `${pace1.userId}-${pace1.date}-${pace1.value}-${pace1.units}-${pace2.value}-${pace2.units}`;
-    const newPacePair: PacePair = { id, pace1, pace2 };
-    pacePairs[id] = newPacePair;
+    // Assign the next available ID to the new pace pair
+    const id = pacePairIdCounter++;
+    const newPacePair: PacePair = {id, pace1, pace2};
+    pacePairs.push(newPacePair);
 
     res.status(201).send(newPacePair);
 });
 
 app.get('/paces/:id', (req: Request, res: Response) => {
-    const id = req.params.id;
-    const pacePair = pacePairs[id];
+    const id = parseInt(req.params.id);
+    const pacePair = pacePairs.find(pair => pair.id === id);
 
     if (!pacePair) {
         return res.status(404).send('Pace pair not found');
@@ -46,32 +50,42 @@ app.get('/paces/:id', (req: Request, res: Response) => {
     res.send(pacePair);
 });
 
-app.put('/paces/:id', (req: Request, res: Response) => {
-    const id = req.params.id;
-    const { pace1, pace2 } = req.body;
+app.get('/all_paces', (req: Request, res: Response) => {
+    console.log(pacePairs);
+    res.send(pacePairs);
+});
 
-    if (!pace1 || !pace2 || !pace1.value || !pace1.units || !pace1.userId || !pace1.date || !pace2.value || !pace2.units || !pace2.userId || !pace2.date) {
-        return res.status(400).send('Both pace1 and pace2 with all fields (value, units, userId, and date) are required');
+app.put('/paces/:id', (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const {pace1, pace2} = req.body;
+
+    if (!pace1 || !pace2 || !pace1.value || !pace1.units || !pace1.userId || !pace1.date || !pace2.value ||
+        !pace2.units || !pace2.userId || !pace2.date) {
+        return res.status(400).send('Both pace1 and pace2 with all fields (value, units, userId,' +
+            ' and date) are required');
     }
 
-    if (!pacePairs[id]) {
+    const pacePairIndex = pacePairs.findIndex(pair => pair.id === id);
+
+    if (pacePairIndex === -1) {
         return res.status(404).send('Pace pair not found');
     }
 
-    const updatedPacePair: PacePair = { id, pace1, pace2 };
-    pacePairs[id] = updatedPacePair;
+    pacePairs[pacePairIndex] = {id, pace1, pace2};
 
-    res.send(updatedPacePair);
+    res.send(pacePairs[pacePairIndex]);
 });
 
 app.delete('/paces/:id', (req: Request, res: Response) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
+    const pacePairIndex = pacePairs.findIndex(pair => pair.id === id);
 
-    if (!pacePairs[id]) {
+    if (pacePairIndex === -1) {
         return res.status(404).send('Pace pair not found');
     }
 
-    delete pacePairs[id];
+    pacePairs.splice(pacePairIndex, 1);
+
     res.status(204).send();
 });
 
