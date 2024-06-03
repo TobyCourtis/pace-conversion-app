@@ -1,8 +1,7 @@
-# Improved Instagram
+# Running Pace Conversion App
 
-Plan is to remove reels, ads etc if possible.
+Currently, supports pace to speed e.g 5min/km -> 12km/h
 
-Want to split other from friends as well.
-
+An Ionic test!!
 
 
