@@ -27,8 +27,6 @@ const TimeSelector = () => {
             <div className={'time-selector-datetime-div centre'}>
                 <IonDatetime
                     presentation="time"
-                    displayFormat="HH:mm"
-                    pickerFormat="HH:mm"
                     onIonChange={handleTimeChange}
                     className="time-selector-datetime"
                     value={selectedTime}
