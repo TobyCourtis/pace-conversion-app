@@ -16,5 +16,21 @@
 }
 
 .converted-time-div {
-    margin-top: 10vh;
+    margin-top: 1vh;
+}
+
+#arrow-down {
+    margin-top: 1vh;
+    font-size: 5rem;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3vh;
+}
+
+#history-title {
+    margin: 0;
 }
