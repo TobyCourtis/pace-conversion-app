@@ -4,9 +4,16 @@ import './TimeSelector.css';
 import {IonIcon} from '@ionic/react';
 import {arrowDownOutline} from 'ionicons/icons';
 
+import {Haptics} from '@capacitor/haptics';
+
+const hapticsVibrate = async () => {
+    await Haptics.vibrate();
+};
+
 const TimeSelector = () => {
     const [selectedTime, setSelectedTime] = useState<string>("05:30");
-    const [history, setHistory] = useState<{ time: string; speed: string }[]>([]);
+    const [history, setHistory] =
+        useState<{ time: string; speed: string }[]>([]);
 
     const handleTimeChange = (e: CustomEvent) => {
         const newTime = e.detail.value!;
@@ -31,6 +38,7 @@ const TimeSelector = () => {
 
         const alreadyExists = history.some(entry => entry.time === newEntry.time);
 
+        hapticsVibrate()
         if (alreadyExists) {
             console.log('TODO - show modal saying already added');
         } else {
