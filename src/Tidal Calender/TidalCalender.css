@@ -1,0 +1,14 @@
+.container {
+    position: relative;
+}
+
+.fixed-top {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #fff;
+}
+
+.scrollable-content {
+    margin-top: 100px;
+}
